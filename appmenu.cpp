@@ -32,6 +32,7 @@ const QDBusArgument& operator>>(const QDBusArgument& argument, MenuInfo& info)
 AppMenu::AppMenu(QObject *parent, const QVariantList& args)
     : Plasma::AbstractRunner(parent, args)
     , m_icons(new Oxygen::GtkIcons())
+    , m_dbusMenu(0)
 {
     Q_UNUSED(args);
     qDBusRegisterMetaType <MenuInfo>();
@@ -67,6 +68,9 @@ void AppMenu::activeWindowChanged(WId wid)
 
 void AppMenu::match(Plasma::RunnerContext &context)
 {
+    delete m_dbusMenu;
+    m_dbusMenu = 0;
+
     const QString term = context.query().toLower();
     if (term.length() < 3) {
         return;
@@ -76,12 +80,13 @@ void AppMenu::match(Plasma::RunnerContext &context)
     reply.waitForFinished();
     if (reply.isError()) {
         qDebug() << reply.error().message();
-        qDebug() << reply.error().message();
+        qDebug() << reply.error().name();
         return;
     }
 
-    com::canonical::dbusmenu *menu = new com::canonical::dbusmenu(reply.argumentAt<0>(), reply.argumentAt<1>().path(), QDBusConnection::sessionBus());
-    QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  menu->GetLayout(0, -1, QStringList());
+    qDebug() << reply.argumentAt<0>();
+    m_dbusMenu = new com::canonical::dbusmenu(reply.argumentAt<0>(), reply.argumentAt<1>().path(), QDBusConnection::sessionBus());
+    QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
     menuItems.waitForFinished();
 
     const DBusMenuLayoutItem item =  menuItems.argumentAt<1>();
@@ -90,11 +95,21 @@ void AppMenu::match(Plasma::RunnerContext &context)
     inspectForMatches(item, term, results);
 
     context.addMatches(term, results);
+
 }
 
 void AppMenu::run(const Plasma::RunnerContext &context, const Plasma::QueryMatch &match)
 {
     Q_UNUSED(context)
+
+    QDBusVariant empty;
+    empty.setVariant(QVariant::fromValue<QString>(QString()));
+    qDebug() << match.id();
+    QDBusPendingReply <void > reply = m_dbusMenu->Event(match.data().toInt(), "clicked", empty, QDateTime::currentDateTime().toTime_t());
+
+    qDebug() << reply.isError();
+    qDebug() << reply.error().message();
+    qDebug() << reply.error().name();
 }
 
 void AppMenu::inspectForMatches(const DBusMenuLayoutItem& topItem, QString query, MatchList& result)
@@ -122,12 +137,16 @@ void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& result)
     Plasma::QueryMatch match(this);
 
     match.setText(item.properties.value("label").toString().remove("_"));
-    match.setId(item.properties["id"].toString());
+    match.setId(QString::number(item.id));
+
+    match.setData(QVariant::fromValue(item.id));
 
     if (item.properties.contains("icon-name")) {
         match.setIcon(QIcon::fromTheme(item.properties["icon-name"].toString()));
     }
 
+    qDebug() << item.properties.keys();
+    qDebug() << "ID: " << item.id;
     result.append(match);
 }
 
