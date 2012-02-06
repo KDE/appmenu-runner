@@ -76,6 +76,7 @@ void AppMenu::match(Plasma::RunnerContext &context)
         return;
     }
 
+    qDebug() << "Getting menu for widow: " << m_activeWid;
     QDBusPendingReply <QString, QDBusObjectPath > reply =  m_appMenu->GetMenuForWindow(m_activeWid);
     reply.waitForFinished();
     if (reply.isError()) {
@@ -86,6 +87,7 @@ void AppMenu::match(Plasma::RunnerContext &context)
 
     qDebug() << reply.argumentAt<0>();
     m_dbusMenu = new com::canonical::dbusmenu(reply.argumentAt<0>(), reply.argumentAt<1>().path(), QDBusConnection::sessionBus());
+    qDebug() << "Getting Layout";
     QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
     menuItems.waitForFinished();
 
@@ -124,9 +126,6 @@ void AppMenu::inspectForMatches(const DBusMenuLayoutItem& topItem, QString query
     Q_FOREACH(const DBusMenuLayoutItem &item, topItem.children) {
         label = item.properties.value("label").toString().remove("_");
 
-        qDebug() << "top Item: " << label;
-        qDebug() << "Got a path: " << path;
-
         if (!item.children.isEmpty()) {
             QString subPath(path);
             subPath.append(label);
@@ -150,8 +149,6 @@ void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& matchList, QSt
     subText.append(path);
     subText.append(text);
 
-    qDebug() << "Creating: " << path << " > " << text;
-
     Plasma::QueryMatch match(this);
     match.setText(text);
     match.setSubtext(subText);
@@ -163,8 +160,6 @@ void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& matchList, QSt
         match.setIcon(QIcon::fromTheme(item.properties["icon-name"].toString()));
     }
 
-    qDebug() << item.properties.keys();
-    qDebug() << "ID: " << item.id;
     matchList.append(match);
 }
 
@@ -178,9 +173,6 @@ void AppMenu::getTopLevelWindows()
             m_topWindows.append(window->winId());
         }
     }
-
-    qDebug() << "Top level windows";
-    qDebug() << m_topWindows;
 }
 
 #include "appmenu.moc"
