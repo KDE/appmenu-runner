@@ -79,29 +79,19 @@ void AppMenu::match(Plasma::RunnerContext &context)
     delete m_dbusMenu;
     m_dbusMenu = 0;
 
-    qDebug() << "Getting menu for widow: " << m_activeWid;
-    QDBusPendingReply <QString, QDBusObjectPath > reply =  m_appMenu->GetMenuForWindow(m_activeWid);
-    reply.waitForFinished();
-    if (reply.isError()) {
-        handleDBusError(reply.error());
-        return;
-    }
+    QPair <QString, QString> dbusInfo = getMenuForActiveWindow();
+    m_dbusMenu = new com::canonical::dbusmenu(dbusInfo.first, dbusInfo.second, QDBusConnection::sessionBus());
 
-    qDebug() << reply.argumentAt<0>();
-    m_dbusMenu = new com::canonical::dbusmenu(reply.argumentAt<0>(), reply.argumentAt<1>().path(), QDBusConnection::sessionBus());
     qDebug() << "Getting Layout";
-    QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
-    menuItems.waitForFinished();
 
-    if (menuItems.isError()) {
-        handleDBusError(reply.error());
+    const DBusMenuLayoutItem topItem = getTopLevelItem();
+
+    if (topItem.id == -1) {
         return;
     }
 
-    const DBusMenuLayoutItem topItem =  menuItems.argumentAt<1>();
-
-    MatchList results;
     QString path;
+    MatchList results;
     Q_FOREACH(const DBusMenuLayoutItem &topLevel, topItem.children) {
         path.append(topLevel.properties.value("label").toString().remove("_"));
         path.append(" > ");
@@ -124,6 +114,39 @@ void AppMenu::run(const Plasma::RunnerContext &context, const Plasma::QueryMatch
     qDebug() << reply.isError();
     qDebug() << reply.error().message();
     qDebug() << reply.error().name();
+}
+
+const QPair< QString, QString > AppMenu::getMenuForActiveWindow() const
+{
+    qDebug() << "Getting menu for widow: " << m_activeWid;
+    QDBusPendingReply <QString, QDBusObjectPath > reply =  m_appMenu->GetMenuForWindow(m_activeWid);
+    reply.waitForFinished();
+
+    QPair<QString, QString> dbusInfo;
+    if (reply.isError()) {
+        handleDBusError(reply.error());
+        return dbusInfo;
+    }
+
+    dbusInfo.first = reply.argumentAt<0>();
+    dbusInfo.second = reply.argumentAt<1>().path();
+
+    return dbusInfo;
+}
+
+const DBusMenuLayoutItem AppMenu::getTopLevelItem() const
+{
+    QDBusPendingReply <uint, DBusMenuLayoutItem > topItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
+    topItems.waitForFinished();
+
+    if (topItems.isError()) {
+        handleDBusError(topItems.error());
+        DBusMenuLayoutItem errorItem;
+        errorItem.id = -1;
+        return errorItem;
+    }
+
+    return topItems.argumentAt<1>();
 }
 
 void AppMenu::inspectForMatches(const DBusMenuLayoutItem& topItem, QString query, MatchList& matchList, QString &path)

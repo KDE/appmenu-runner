@@ -29,6 +29,8 @@ class AppMenu : public Plasma::AbstractRunner
         void activeWindowChanged(WId wid);
 
     private:
+        const QPair<QString, QString> getMenuForActiveWindow() const;
+        const DBusMenuLayoutItem getTopLevelItem() const;
         void inspectForMatches(const DBusMenuLayoutItem &topItem, QString query, MatchList &matchList, QString &path);
         void getTopLevelWindows();
         void addMatch(const DBusMenuLayoutItem& item, MatchList& matchList, QString& path);
