@@ -83,8 +83,7 @@ void AppMenu::match(Plasma::RunnerContext &context)
     QDBusPendingReply <QString, QDBusObjectPath > reply =  m_appMenu->GetMenuForWindow(m_activeWid);
     reply.waitForFinished();
     if (reply.isError()) {
-        qDebug() << reply.error().message();
-        qDebug() << reply.error().name();
+        handleDBusError(reply.error());
         return;
     }
 
@@ -93,6 +92,11 @@ void AppMenu::match(Plasma::RunnerContext &context)
     qDebug() << "Getting Layout";
     QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
     menuItems.waitForFinished();
+
+    if (menuItems.isError()) {
+        handleDBusError(reply.error());
+        return;
+    }
 
     const DBusMenuLayoutItem topItem =  menuItems.argumentAt<1>();
 
@@ -175,6 +179,12 @@ void AppMenu::getTopLevelWindows()
             m_topWindows.append(window->winId());
         }
     }
+}
+
+void AppMenu::handleDBusError(const QDBusError& error) const
+{
+    qDebug() << error.name();
+    qDebug() << error.message();
 }
 
 #include "appmenu.moc"

@@ -33,6 +33,8 @@ class AppMenu : public Plasma::AbstractRunner
         void getTopLevelWindows();
         void addMatch(const DBusMenuLayoutItem& item, MatchList& matchList, QString& path);
 
+        void handleDBusError(const QDBusError &error) const;
+
     private:
         WId m_activeWid;
         QList<WId> m_topWindows;
