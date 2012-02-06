@@ -71,13 +71,13 @@ void AppMenu::activeWindowChanged(WId wid)
 
 void AppMenu::match(Plasma::RunnerContext &context)
 {
-    delete m_dbusMenu;
-    m_dbusMenu = 0;
-
     const QString term = context.query().toLower();
     if (term.length() < 3) {
         return;
     }
+
+    delete m_dbusMenu;
+    m_dbusMenu = 0;
 
     qDebug() << "Getting menu for widow: " << m_activeWid;
     QDBusPendingReply <QString, QDBusObjectPath > reply =  m_appMenu->GetMenuForWindow(m_activeWid);
