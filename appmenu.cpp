@@ -13,6 +13,9 @@
 
 #include <qdbusmetatype.h>
 
+#define REGISTRAR_PATH "/com/canonical/AppMenu/Registrar"
+#define REGISTRAR_SERVICE "com.canonical.AppMenu.Registrar"
+
 QDBusArgument& operator<<(QDBusArgument& argument, const MenuInfo& info)
 {
     argument.beginStructure();
@@ -43,7 +46,7 @@ AppMenu::AppMenu(QObject *parent, const QVariantList& args)
 
     getTopLevelWindows();
 
-    m_appMenu = new com::canonical::AppMenu::Registrar("com.canonical.AppMenu.Registrar", "/com/canonical/AppMenu/Registrar", QDBusConnection::sessionBus());
+    m_appMenu = new com::canonical::AppMenu::Registrar(REGISTRAR_SERVICE, REGISTRAR_PATH, QDBusConnection::sessionBus());
 
     connect(KWindowSystem::self(), SIGNAL(activeWindowChanged(WId)), this, SLOT(activeWindowChanged(WId)));
 
@@ -112,7 +115,6 @@ void AppMenu::run(const Plasma::RunnerContext &context, const Plasma::QueryMatch
 
     QDBusVariant empty;
     empty.setVariant(QVariant::fromValue<QString>(QString()));
-    qDebug() << match.id();
     QDBusPendingReply <void > reply = m_dbusMenu->Event(match.data().toInt(), "clicked", empty, QDateTime::currentDateTime().toTime_t());
 
     qDebug() << reply.isError();
