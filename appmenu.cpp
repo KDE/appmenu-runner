@@ -89,10 +89,16 @@ void AppMenu::match(Plasma::RunnerContext &context)
     QDBusPendingReply <uint, DBusMenuLayoutItem > menuItems =  m_dbusMenu->GetLayout(0, -1, QStringList());
     menuItems.waitForFinished();
 
-    const DBusMenuLayoutItem item =  menuItems.argumentAt<1>();
+    const DBusMenuLayoutItem topItem =  menuItems.argumentAt<1>();
 
     MatchList results;
-    inspectForMatches(item, term, results);
+    QString path;
+    Q_FOREACH(const DBusMenuLayoutItem &topLevel, topItem.children) {
+        path.append(topLevel.properties.value("label").toString().remove("_"));
+        path.append(" > ");
+        inspectForMatches(topLevel, term, results, path);
+        path.clear();
+    }
 
     context.addMatches(term, results);
 
@@ -112,31 +118,43 @@ void AppMenu::run(const Plasma::RunnerContext &context, const Plasma::QueryMatch
     qDebug() << reply.error().name();
 }
 
-void AppMenu::inspectForMatches(const DBusMenuLayoutItem& topItem, QString query, MatchList& result)
+void AppMenu::inspectForMatches(const DBusMenuLayoutItem& topItem, QString query, MatchList& matchList, QString &path)
 {
-    if (topItem.children.isEmpty()) {
-        return;
-    }
-
     QString label;
     Q_FOREACH(const DBusMenuLayoutItem &item, topItem.children) {
+        label = item.properties.value("label").toString().remove("_");
+
+        qDebug() << "top Item: " << label;
+        qDebug() << "Got a path: " << path;
+
         if (!item.children.isEmpty()) {
-            inspectForMatches(item, query, result);
+            QString subPath(path);
+            subPath.append(label);
+            subPath.append(" > ");
+
+            inspectForMatches(item, query, matchList, subPath);
+            subPath.clear();
             continue;
         }
 
-        label = item.properties.value("label").toString().remove("_");
         if (label.contains(query, Qt::CaseInsensitive)) {
-            addMatch(item, result);
+            addMatch(item, matchList, path);
         }
     }
 }
 
-void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& result)
+void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& matchList, QString &path)
 {
-    Plasma::QueryMatch match(this);
+    QString text = item.properties.value("label").toString().remove("_");
+    QString subText = QString();
+    subText.append(path);
+    subText.append(text);
 
-    match.setText(item.properties.value("label").toString().remove("_"));
+    qDebug() << "Creating: " << path << " > " << text;
+
+    Plasma::QueryMatch match(this);
+    match.setText(text);
+    match.setSubtext(subText);
     match.setId(QString::number(item.id));
 
     match.setData(QVariant::fromValue(item.id));
@@ -147,7 +165,7 @@ void AppMenu::addMatch(const DBusMenuLayoutItem& item, MatchList& result)
 
     qDebug() << item.properties.keys();
     qDebug() << "ID: " << item.id;
-    result.append(match);
+    matchList.append(match);
 }
 
 void AppMenu::getTopLevelWindows()
