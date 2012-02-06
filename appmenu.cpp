@@ -62,13 +62,10 @@ AppMenu::~AppMenu()
 
 void AppMenu::activeWindowChanged(WId wid)
 {
-    qDebug() << "New window: " << wid;
-
-    if (m_topWindows.contains(wid) || wid == 0) {
+    if (m_topWindows.contains(wid)) {
         return;
     }
 
-    qDebug() << "Active window changed: " << wid;
     m_activeWid = wid;
 }
 
