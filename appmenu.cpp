@@ -95,7 +95,9 @@ void AppMenu::match(Plasma::RunnerContext &context)
     Q_FOREACH(const DBusMenuLayoutItem &topLevel, topItem.children) {
         path.append(topLevel.properties.value("label").toString().remove("_"));
         path.append(" > ");
+
         inspectForMatches(topLevel, term, results, path);
+
         path.clear();
     }
 
