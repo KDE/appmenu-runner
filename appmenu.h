@@ -5,7 +5,6 @@
 #include "app_menu.h"
 #include "dbus_menu.h"
 #include "dbusmenutypes_p.h"
-#include "mydbusmenuimporter.h"
 
 #include <QMenu>
 
@@ -36,7 +35,6 @@ class AppMenu : public Plasma::AbstractRunner
     private:
         WId m_activeWid;
         QList<WId> m_topWindows;
-        Oxygen::GtkIcons *m_icons;
         com::canonical::dbusmenu *m_dbusMenu;
         com::canonical::AppMenu::Registrar *m_appMenu;
 };

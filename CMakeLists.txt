@@ -16,7 +16,7 @@ include_directories(
    )
 
 # We add our source code here
-set(appmenu_SRCS appmenu.cpp icons.cpp dbusmenutypes_p.cpp dbusmenushortcut_p.cpp)
+set(appmenu_SRCS appmenu.cpp dbusmenutypes_p.cpp dbusmenushortcut_p.cpp)
 
 set(appmenu_xml com.canonical.AppMenu.Registrar.xml)
 set_source_files_properties(${appmenu_xml} PROPERTIES INCLUDE "data.h")

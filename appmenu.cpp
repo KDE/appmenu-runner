@@ -31,7 +31,6 @@ const QDBusArgument& operator>>(const QDBusArgument& argument, MenuInfo& info)
 
 AppMenu::AppMenu(QObject *parent, const QVariantList& args)
     : Plasma::AbstractRunner(parent, args)
-    , m_icons(new Oxygen::GtkIcons())
     , m_dbusMenu(0)
 {
     Q_UNUSED(args);
