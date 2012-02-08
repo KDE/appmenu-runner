@@ -74,7 +74,6 @@ AppMenu::AppMenu(QObject *parent, const QVariantList& args)
 AppMenu::~AppMenu()
 {
     delete m_dbusMenu;
-    delete m_icons;
     delete m_appMenu;
 }
 
