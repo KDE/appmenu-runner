@@ -19,6 +19,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "dbusmenutypes_p.h"
+#include "data.h"
 
 // Local
 #include <dbusmenushortcut_p.h>
@@ -28,6 +29,21 @@
 #include <QDBusMetaType>
 
 //// DBusMenuItem
+QDBusArgument& operator<<(QDBusArgument& argument, const MenuInfo& info)
+{
+    argument.beginStructure();
+    argument << info.winId << info.service << info.path;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument& operator>>(const QDBusArgument& argument, MenuInfo& info)
+{
+    argument.beginStructure();
+    argument >> info.winId >> info.service >> info.path;
+    argument.endStructure();
+    return argument;
+}
 QDBusArgument &operator<<(QDBusArgument &argument, const DBusMenuItem &obj)
 {
     argument.beginStructure();
@@ -107,5 +123,7 @@ void DBusMenuTypes_register()
     qDBusRegisterMetaType<DBusMenuLayoutItem>();
     qDBusRegisterMetaType<DBusMenuLayoutItemList>();
     qDBusRegisterMetaType<DBusMenuShortcut>();
+    qDBusRegisterMetaType <MenuInfo>();
+    qDBusRegisterMetaType <MenuInfoList>();
     registered = true;
 }

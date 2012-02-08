@@ -35,29 +35,11 @@
 #define REGISTRAR_PATH "/com/canonical/AppMenu/Registrar"
 #define REGISTRAR_SERVICE "com.canonical.AppMenu.Registrar"
 
-QDBusArgument& operator<<(QDBusArgument& argument, const MenuInfo& info)
-{
-    argument.beginStructure();
-    argument << info.winId << info.service << info.path;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument& operator>>(const QDBusArgument& argument, MenuInfo& info)
-{
-    argument.beginStructure();
-    argument >> info.winId >> info.service >> info.path;
-    argument.endStructure();
-    return argument;
-}
-
 AppMenu::AppMenu(QObject *parent, const QVariantList& args)
     : Plasma::AbstractRunner(parent, args)
     , m_dbusMenu(0)
 {
     Q_UNUSED(args);
-    qDBusRegisterMetaType <MenuInfo>();
-    qDBusRegisterMetaType <MenuInfoList>();
     DBusMenuTypes_register();
 
     setObjectName("appmenu");
