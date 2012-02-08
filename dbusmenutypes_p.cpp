@@ -19,7 +19,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "dbusmenutypes_p.h"
-#include "data.h"
 
 // Local
 #include <dbusmenushortcut_p.h>

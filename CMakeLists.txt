@@ -19,7 +19,7 @@ include_directories(
 set(appmenu_SRCS appmenu.cpp dbusmenutypes_p.cpp dbusmenushortcut_p.cpp)
 
 set(appmenu_xml com.canonical.AppMenu.Registrar.xml)
-set_source_files_properties(${appmenu_xml} PROPERTIES INCLUDE "data.h")
+set_source_files_properties(${appmenu_xml} PROPERTIES INCLUDE "dbusmenutypes_p.h")
 qt4_add_dbus_interface(appmenu_SRCS ${appmenu_xml} app_menu)
 
 set(dbusmenu_xml com.canonical.dbusmenu.xml)

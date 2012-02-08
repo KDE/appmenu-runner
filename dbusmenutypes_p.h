@@ -25,6 +25,7 @@
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
+#include <QDBusObjectPath>
 
 // Local
 #include <dbusmenu_export.h>
@@ -91,6 +92,23 @@ DBUSMENU_EXPORT const QDBusArgument &operator>>(const QDBusArgument &argument, D
 typedef QList<DBusMenuLayoutItem> DBusMenuLayoutItemList;
 
 Q_DECLARE_METATYPE(DBusMenuLayoutItemList)
+
+
+struct MenuInfo
+{
+    MenuInfo()
+    : winId(0)
+    , path("/")
+    {}
+
+    uint winId;
+    QString service;
+    QDBusObjectPath path;
+};
+Q_DECLARE_METATYPE(MenuInfo)
+
+typedef QList<MenuInfo> MenuInfoList;
+Q_DECLARE_METATYPE(MenuInfoList)
 
 void DBusMenuTypes_register();
 #endif /* DBUSMENUTYPES_P_H */
