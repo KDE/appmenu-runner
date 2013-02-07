@@ -72,6 +72,10 @@ void AppMenu::activeWindowChanged(WId wid)
 
 void AppMenu::match(Plasma::RunnerContext &context)
 {
+    if (!m_activeWid) {
+        return;
+    }
+
     const QString term = context.query().toLower();
     if (term.length() < 3) {
         return;
@@ -81,6 +85,10 @@ void AppMenu::match(Plasma::RunnerContext &context)
     m_dbusMenu = 0;
 
     QPair <QString, QString> dbusInfo = getMenuForActiveWindow();
+    if (dbusInfo.first.isEmpty() || dbusInfo.second.isEmpty()) {
+        return;
+    }
+
     m_dbusMenu = new com::canonical::dbusmenu(dbusInfo.first, dbusInfo.second, QDBusConnection::sessionBus());
 
     qDebug() << "Getting Layout";
