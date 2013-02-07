@@ -37,7 +37,9 @@
 
 AppMenu::AppMenu(QObject *parent, const QVariantList& args)
     : Plasma::AbstractRunner(parent, args)
+    , m_activeWid(0)
     , m_dbusMenu(0)
+    , m_appMenu(0)
 {
     Q_UNUSED(args);
     DBusMenuTypes_register();
