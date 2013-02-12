@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=AppMenu action launcher
+Name[cs]=Spouštěč činností AppMenu
 Name[nl]=Actiestarter van AppMenu
 Name[pt]=Lançamento de acções do menu
 Name[pt_BR]=Lançador de ações do menu de aplicativos
@@ -7,6 +8,7 @@ Name[sk]=Spúšťač akcií AppMenu
 Name[uk]=Засіб виконання дій з меню програм
 Name[x-test]=xxAppMenu action launcherxx
 Comment=Let you find and launch actions from the active application
+Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[nl]=Stelt u in staat acties van de actieve toepassing te vinden en te starten
 Comment[pt]=Permite-lhe descobrir e invocar acções da aplicação activa
 Comment[pt_BR]=Permite-lhe encontrar e executar ações a partir do aplicativo ativo
