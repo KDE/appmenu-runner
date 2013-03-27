@@ -1,15 +1,5 @@
 [Desktop Entry]
 Name=Application Menu
-Name[de]=Anwendungsmenü
-Name[cs]=Spouštěč činností AppMenu
-Name[fr]=Lanceur d'actions AppMenu
-Name[nl]=Actiestarter van AppMenu
-Name[pt]=Lançamento de acções do menu
-Name[pt_BR]=Lançador de ações do menu de aplicativos
-Name[sk]=Spúšťač akcií AppMenu
-Name[sv]=Appmeny åtgärdsstart
-Name[uk]=Засіб виконання дій з меню програм
-Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[fr]=Permet de trouver et lancer des actions à partir de l'application active
