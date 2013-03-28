@@ -1,5 +1,10 @@
 [Desktop Entry]
 Name=Application Menu
+Name[pt]=Menu da Aplicação
+Name[pt_BR]=Menu de aplicativos
+Name[sv]=Programmeny
+Name[uk]=Меню програм
+Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[fr]=Permet de trouver et lancer des actions à partir de l'application active
