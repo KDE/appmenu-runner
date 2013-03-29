@@ -1,8 +1,10 @@
 [Desktop Entry]
 Name=Application Menu
+Name[nl]=Menu van toepassing
 Name[pt]=Menu da Aplicação
 Name[pt_BR]=Menu de aplicativos
 Name[sv]=Programmeny
+Name[tr]=Uygulama Menüsü
 Name[uk]=Меню програм
 Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
@@ -13,6 +15,7 @@ Comment[pt]=Permite-lhe descobrir e invocar acções da aplicação activa
 Comment[pt_BR]=Permite-lhe encontrar e executar ações a partir do aplicativo ativo
 Comment[sk]=Umožní vám nájsť a spustiť položky z aktívnej aplikácie
 Comment[sv]=Låter dig hitta och starta åtgärder från det aktiva programmet
+Comment[tr]=Etkin uygulamadan eylemleri arayıp çalıştırmanızı sağlar
 Comment[uk]=Надає вам змогу знаходити і виконувати дії, пов’язані з пунктами меню поточної програми
 Comment[x-test]=xxLet you find and launch actions from the active applicationxx
 Icon=show-menu
