@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Application Menu
 Name[de]=Anwendungsmenü
+Name[es]=Menú de la aplicación
 Name[nl]=Menu van toepassing
 Name[pt]=Menu da Aplicação
 Name[pt_BR]=Menu de aplicativos
@@ -10,6 +11,7 @@ Name[uk]=Меню програм
 Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
+Comment[es]=Le permite buscar y ejecutar acciones de la aplicación activa
 Comment[fr]=Permet de trouver et lancer des actions à partir de l'application active
 Comment[nl]=Stelt u in staat acties van de actieve toepassing te vinden en te starten
 Comment[pt]=Permite-lhe descobrir e invocar acções da aplicação activa
