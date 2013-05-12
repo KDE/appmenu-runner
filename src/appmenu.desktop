@@ -2,6 +2,7 @@
 Name=Application Menu
 Name[de]=Anwendungsmenü
 Name[es]=Menú de la aplicación
+Name[fi]=Sovelluksen valikko
 Name[fr]=Menu des applications
 Name[mr]=अनुप्रयोग मेन्यू
 Name[nl]=Menu van toepassing
@@ -15,6 +16,7 @@ Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[es]=Le permite buscar y ejecutar acciones de la aplicación activa
+Comment[fi]=Mahdollistaa aktiivisen sovelluksen toimintojen etsimisen ja käynnistämisen
 Comment[fr]=Permet de trouver et lancer des actions à partir de l'application active
 Comment[mr]=सक्रिय अनुप्रयोगातून तुम्हाला क्रीया शोधणे व प्रक्षेपण करण्याकरिता मदत करतो
 Comment[nl]=Stelt u in staat acties van de actieve toepassing te vinden en te starten
