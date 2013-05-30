@@ -15,6 +15,7 @@ Name[uk]=Меню програм
 Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
+Comment[de]=Findet und startet Aktionen der aktiven Anwendung
 Comment[es]=Le permite buscar y ejecutar acciones de la aplicación activa
 Comment[fi]=Mahdollistaa aktiivisen sovelluksen toimintojen etsimisen ja käynnistämisen
 Comment[fr]=Permet de trouver et lancer des actions à partir de l'application active
