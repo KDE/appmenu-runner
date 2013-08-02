@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Application Menu
+Name[bs]=Aplikacijski meni
 Name[de]=Anwendungsmenü
 Name[es]=Menú de la aplicación
 Name[fi]=Sovelluksen valikko
@@ -16,6 +17,7 @@ Name[tr]=Uygulama Menüsü
 Name[uk]=Меню програм
 Name[x-test]=xxApplication Menuxx
 Comment=Let you find and launch actions from the active application
+Comment[bs]=Pokrećite akcije iz aktivnog programa
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[de]=Findet und startet Aktionen der aktiven Anwendung
 Comment[es]=Le permite buscar y ejecutar acciones de la aplicación activa
