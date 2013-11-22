@@ -46,6 +46,8 @@ AppMenu::AppMenu(QObject *parent, const QVariantList& args)
 
     setObjectName("appmenu");
 
+    setDefaultSyntax(Plasma::RunnerSyntax(i18nc("list of all menu entries", "menus"),
+                                          i18n("List all menus")));
     getTopLevelWindows();
 
     m_appMenu = new com::canonical::AppMenu::Registrar(REGISTRAR_SERVICE, REGISTRAR_PATH, QDBusConnection::sessionBus());
