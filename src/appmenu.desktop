@@ -2,6 +2,7 @@
 Name=Application Menu
 Name[bs]=Aplikacijski meni
 Name[de]=Anwendungsmenü
+Name[el]=Μενού εφαρμογής
 Name[es]=Menú de la aplicación
 Name[fi]=Sovelluksen valikko
 Name[fr]=Menu des applications
@@ -23,6 +24,7 @@ Comment=Let you find and launch actions from the active application
 Comment[bs]=Pokrećite akcije iz aktivnog programa
 Comment[cs]=Umožní vám najít a spustit činnosti z aktivní aplikace
 Comment[de]=Findet und startet Aktionen der aktiven Anwendung
+Comment[el]=Σας επιτρέπει να βρείτε και να ενεργοποιήσετε ενέργειες της ενεργής εφαρμογής
 Comment[es]=Le permite buscar y ejecutar acciones de la aplicación activa
 Comment[fi]=Mahdollistaa aktiivisen sovelluksen toimintojen etsimisen ja käynnistämisen
 Comment[fr]=Vous permet de trouver et de lancer des actions à partir de l'application active
